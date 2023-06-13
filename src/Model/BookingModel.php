@@ -2,12 +2,10 @@
 
 namespace App\Model;
 
-use App\Model\Database;
+use App\Model\AbstractModel;
 
-class BookingModel
+class BookingModel extends AbstractModel
 {
-    private Database $database;
-
     private int $id;
 
     private string $lastname;
@@ -25,11 +23,6 @@ class BookingModel
     private string $city;
 
     private string $date;
-
-    public function __construct()
-    {
-        $this->database = Database::getDatabase();
-    }
 
     public function findAll()
     {
