@@ -2,11 +2,11 @@
 
 namespace App\Model;
 
-use DateTime;
+use App\Model\Database;
 
 class BookingModel
 {
-    private \PDO $pdo;
+    private Database $database;
 
     private int $id;
 
@@ -28,20 +28,7 @@ class BookingModel
 
     public function __construct()
     {
-        $config = parse_ini_file(dirname(__FILE__, 3). '/config.ini');
-        $db_dbname = $config['DB_NAME'];
-        $db_host = $config['DB_HOST'];
-        $db_port = $config['DB_PORT'];
-        $db_user = $config['DB_USER'];
-        $db_pass = $config['DB_PASSWORD'];
-        try {
-            $this->pdo = new \PDO("mysql:host=$db_host;port=$db_port;dbname=$db_dbname", $db_user, $db_pass,array(
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-            ));
-        } catch (\PDOException $e) {
-            print "Error!: " . $e->getMessage() . "<br/>";
-            die();
-        }
+        $this->database = Database::getDatabase();
     }
 
     public function findAll()
@@ -52,28 +39,8 @@ class BookingModel
             ORDER BY date ASC
         ';
 
-        $pdoStatement = $this->pdo->query($sql);
+        $pdoStatement = $this->database->getPDO()->query($sql);
         return $pdoStatement->fetchAll(\PDO::FETCH_CLASS, self::class);
-    }
-
-    /**
-     * Get the value of pdo
-     */ 
-    public function getPdo()
-    {
-        return $this->pdo;
-    }
-
-    /**
-     * Set the value of pdo
-     *
-     * @return  self
-     */ 
-    public function setPdo($pdo)
-    {
-        $this->pdo = $pdo;
-
-        return $this;
     }
 
     /**
