@@ -18,17 +18,14 @@
         <?php foreach($result as $booking): ?>
             <div class="card mb-3">
                 <div class="card-header">
-                    <?php
-                        $date = new \DateTime($booking->date);
-                        echo $date->format('d/m/Y H:i')
-                    ?>
+                    <?= $booking->formatDate() ?>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title"><?= strtoupper($booking->lastname) . ' '. $booking->firstname ?></h5>
-                    <p class="card-text"><?= $booking->email ?></p>
-                    <p class="card-text"><?= $booking->address1 ?></p>
-                    <p class="card-text"><?= $booking->address2 ?></p>
-                    <p class="card-text"><?= $booking->zip . ' ' . $booking->city ?></p>
+                    <h5 class="card-title"><?= $booking->formatLastname() . ' '. $booking->getFirstname() ?></h5>
+                    <p class="card-text"><?= $booking->getEmail() ?></p>
+                    <p class="card-text"><?= $booking->getAddress1() ?></p>
+                    <p class="card-text"><?= $booking->getAddress2() ?></p>
+                    <p class="card-text"><?= $booking->getZip() . ' ' . $booking->getCity() ?></p>
                     <a href="#" class="btn btn-primary">Modifier</a>
                 </div>
             </div>

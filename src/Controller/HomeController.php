@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\BookingModel;
+
 class HomeController
 {
     public function booking()
@@ -11,28 +13,8 @@ class HomeController
 
     public function list()
     {
-        $config = parse_ini_file(dirname(__FILE__, 3). '/config.ini');
-        $db_dbname = $config['DB_NAME'];
-        $db_host = $config['DB_HOST'];
-        $db_port = $config['DB_PORT'];
-        $db_user = $config['DB_USER'];
-        $db_pass = $config['DB_PASSWORD'];
-        try {
-            $dbh = new \PDO("mysql:host=$db_host;port=$db_port;dbname=$db_dbname", $db_user, $db_pass,array(
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-            ));
-        } catch (\PDOException $e) {
-            print "Error!: " . $e->getMessage() . "<br/>";
-            die();
-        }
-        $sql = '
-            SELECT *
-            FROM booking
-            ORDER BY date ASC
-        ';
-
-        $pdoStatement = $dbh->query($sql);
-        $result = $pdoStatement->fetchAll(\PDO::FETCH_OBJ);
+        $bookingModel = new BookingModel();
+        $result = $bookingModel->findAll();
 
         require dirname(__FILE__, 2) . '/views/booking_list.php';
     }
