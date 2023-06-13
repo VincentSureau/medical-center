@@ -36,6 +36,45 @@ class BookingModel extends AbstractModel
         return $pdoStatement->fetchAll(\PDO::FETCH_CLASS, self::class);
     }
 
+    public function create()
+    {
+        $sql = '
+            INSERT INTO `booking` (
+                `firstname`,
+                `lastname`,
+                `email`,
+                `date`,
+                `address1`,
+                `address2`,
+                `zip`,
+                `city`
+            ) VALUES (
+                :firstname,
+                :lastname,
+                :email,
+                :date,
+                :address1,
+                :address2,
+                :zip,
+                :city
+            )
+        ';
+
+        $pdoStatement = $this->database->getPDO()->prepare($sql);
+        $pdoStatement->bindParam(':firstname',$this->firstname);
+        $pdoStatement->bindParam(':lastname',$this->lastname);
+        $pdoStatement->bindParam(':email',$this->email);
+        $pdoStatement->bindParam(':date',$this->date);
+        $pdoStatement->bindParam(':address1',$this->address1);
+        $pdoStatement->bindParam(':address2',$this->address2);
+        $pdoStatement->bindParam(':zip',$this->zip);
+        $pdoStatement->bindParam(':city',$this->city);
+
+        $result = $pdoStatement->execute();
+
+        return $result;
+    }
+
     /**
      * Get the value of id
      */ 

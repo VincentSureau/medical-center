@@ -14,29 +14,34 @@
     <!-- start form -->
     <div class="container py-5">
         <h1 class="mb-3">Prendre rendez-vous !</h1>
+        <?php if(array_key_exists('booking', $errors)): ?>
+            <div class="alert alert-danger" role="alert">
+                <?= $errors['booking'] ?>
+            </div>
+        <?php endif; ?>
         <form method="POST" action="?page=booking" class="needs-validation" novalidate="">
             <div class="row g-3">
                 <div class="col-sm-6">
                     <label for="firstName" class="form-label">Prénom</label>
-                    <input name="firstname" type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                    <input name="firstname" type="text" class="form-control <?= array_key_exists('firstname', $errors) ? "is-invalid" : "" ?>" id="firstName" placeholder="" value="" required="">
                     <div class="invalid-feedback">
-                        Valid first name is required.
+                        <?= array_key_exists('firstname', $errors) ? $errors['firstname'] : "" ?>
                     </div>
                 </div>
 
                 <div class="col-sm-6">
                     <label for="lastName" class="form-label">Nom de famille</label>
-                    <input name="lastname" type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+                    <input name="lastname" type="text" class="form-control <?= array_key_exists('lastname', $errors) ? "is-invalid" : "" ?>" id="lastName" placeholder="" value="" required="">
                     <div class="invalid-feedback">
-                        Valid last name is required.
+                        <?= array_key_exists('lastname', $errors) ? $errors['lastname'] : "" ?>
                     </div>
                 </div>
 					
                 <div class="col-12">
                     <label for="date" class="form-label">Date et heure</label>
-                    <input name="date" type="datetime-local" class="form-control" id="date" placeholder="" value="" required="">
+                    <input name="date" type="datetime-local" class="form-control <?= array_key_exists('date', $errors) ? "is-invalid" : "" ?>" id="date" placeholder="" value="" required="">
                     <div class="invalid-feedback">
-                        Valid date is required.
+                        <?= array_key_exists('date', $errors) ? $errors['date'] : "" ?>
                     </div>
                 </div>
 
@@ -50,9 +55,9 @@
 
                 <div class="col-12">
                     <label for="address" class="form-label">Addresse</label>
-                    <input name="address1" type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+                    <input name="address1" type="text" class="form-control <?= array_key_exists('address1', $errors) ? "is-invalid" : "" ?>" id="address" placeholder="1234 Main St" required="">
                     <div class="invalid-feedback">
-                        Please enter your shipping address.
+                        <?= array_key_exists('address1', $errors) ? $errors['address1'] : "" ?>
                     </div>
                 </div>
 
@@ -63,17 +68,17 @@
 
                 <div class="col-12">
                     <label for="zip" class="form-label">Code postal</label>
-                    <input name="zip" type="text" class="form-control" id="zip" placeholder="" required="">
+                    <input name="zip" type="text" class="form-control <?= array_key_exists('zip', $errors) ? "is-invalid" : "" ?>" id="zip" placeholder="" required="">
                     <div class="invalid-feedback">
-                        Zip code required.
+                        <?= array_key_exists('zip', $errors) ? $errors['zip'] : "" ?>
                     </div>
                 </div>
 
                 <div class="col-12">
                     <label for="city" class="form-label">City</label>
-                    <input name="city" type="text" class="form-control" id="city" placeholder="" required="">
+                    <input name="city" type="text" class="form-control <?= array_key_exists('city', $errors) ? "is-invalid" : "" ?>" id="city" placeholder="" required="">
                     <div class="invalid-feedback">
-                        City required.
+                        <?= array_key_exists('city', $errors) ? $errors['city'] : "" ?>
                     </div>
                 </div>
             </div>
