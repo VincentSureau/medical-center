@@ -25,6 +25,15 @@ class HomeController
             print "Error!: " . $e->getMessage() . "<br/>";
             die();
         }
+        $sql = '
+            SELECT *
+            FROM booking
+            ORDER BY date ASC
+        ';
+
+        $pdoStatement = $dbh->query($sql);
+        $result = $pdoStatement->fetchAll(\PDO::FETCH_OBJ);
+
         require dirname(__FILE__, 2) . '/views/booking_list.php';
     }
 }
