@@ -14,11 +14,11 @@
     <!-- start form -->
     <div class="container py-5">
         <h1 class="mb-3">Prendre rendez-vous !</h1>
-        <form class="needs-validation" novalidate="">
+        <form method="POST" action="?page=booking" class="needs-validation" novalidate="">
             <div class="row g-3">
                 <div class="col-sm-6">
                     <label for="firstName" class="form-label">Prénom</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                    <input name="firstname" type="text" class="form-control" id="firstName" placeholder="" value="" required="">
                     <div class="invalid-feedback">
                         Valid first name is required.
                     </div>
@@ -26,7 +26,7 @@
 
                 <div class="col-sm-6">
                     <label for="lastName" class="form-label">Nom de famille</label>
-                    <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+                    <input name="lastname" type="text" class="form-control" id="lastName" placeholder="" value="" required="">
                     <div class="invalid-feedback">
                         Valid last name is required.
                     </div>
@@ -34,7 +34,7 @@
 					
                 <div class="col-12">
                     <label for="date" class="form-label">Date et heure</label>
-                    <input type="datetime-local" class="form-control" id="date" placeholder="" value="" required="">
+                    <input name="date" type="datetime-local" class="form-control" id="date" placeholder="" value="" required="">
                     <div class="invalid-feedback">
                         Valid date is required.
                     </div>
@@ -42,15 +42,15 @@
 
                 <div class="col-12">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                    <input name="email" type="email" class="form-control <?= array_key_exists('email', $errors) ? "is-invalid" : "" ?>" id="email" placeholder="you@example.com">
                     <div class="invalid-feedback">
-                        Please enter a valid email address for shipping updates.
+                        <?= array_key_exists('email', $errors) ? $errors['email'] : "" ?>
                     </div>
                 </div>
 
                 <div class="col-12">
                     <label for="address" class="form-label">Addresse</label>
-                    <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+                    <input name="address1" type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
                     <div class="invalid-feedback">
                         Please enter your shipping address.
                     </div>
@@ -58,14 +58,22 @@
 
                 <div class="col-12">
                     <label for="address2" class="form-label">Complément d'adresse <span class="text-body-secondary">(Optional)</span></label>
-                    <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+                    <input name="address2" type="text" class="form-control" id="address2" placeholder="Apartment or suite">
                 </div>
 
                 <div class="col-12">
                     <label for="zip" class="form-label">Code postal</label>
-                    <input type="text" class="form-control" id="zip" placeholder="" required="">
+                    <input name="zip" type="text" class="form-control" id="zip" placeholder="" required="">
                     <div class="invalid-feedback">
                         Zip code required.
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="city" class="form-label">City</label>
+                    <input name="city" type="text" class="form-control" id="city" placeholder="" required="">
+                    <div class="invalid-feedback">
+                        City required.
                     </div>
                 </div>
             </div>
