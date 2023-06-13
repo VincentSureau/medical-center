@@ -24,7 +24,7 @@
                     ?>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title"><?= $booking->lastname . ' '. $booking->firstname ?></h5>
+                    <h5 class="card-title"><?= strtoupper($booking->lastname) . ' '. $booking->firstname ?></h5>
                     <p class="card-text"><?= $booking->email ?></p>
                     <p class="card-text"><?= $booking->address1 ?></p>
                     <p class="card-text"><?= $booking->address2 ?></p>
