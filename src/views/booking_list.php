@@ -12,33 +12,49 @@
 
 <body>
     <?php require 'partials/_navbar.php' ?>
-    
+
     <!-- start form -->
     <div class="container py-5">
         <h1 class="mb-3">Liste des rendez-vous !</h1>
 
         <div id="calendar"></div>
 
-        <?php foreach($result as $booking): ?>
-            <div class="card mb-3">
-                <div class="card-header">
-                    <?= $booking->formatDate() ?>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title"><?= $booking->formatLastname() . ' '. $booking->getFirstname() ?></h5>
-                    <p class="card-text"><?= $booking->getEmail() ?></p>
-                    <p class="card-text"><?= $booking->getAddress1() ?></p>
-                    <p class="card-text"><?= $booking->getAddress2() ?></p>
-                    <p class="card-text"><?= $booking->getZip() . ' ' . $booking->getCity() ?></p>
-                    <a href="#" class="btn btn-primary">Modifier</a>
+        <!-- Modal -->
+        <div class="modal fade" id="booking-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-title"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="card-text" id="modal-email"></p>
+                        <p class="card-text" id="modal-address1"></p>
+                        <p class="card-text"  id="modal-address2"></p>
+                        <p class="card-text"  id="modal-city"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <a id="modal-url" href="#" class="btn btn-primary">Modifier</a>
+                    </div>
                 </div>
             </div>
-        <?php endforeach ?>
+        </div>
+        <!-- end modal -->
     </div>
-    <!-- end form -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script>
+        const modalTitle = document.getElementById('modal-title');
+        const modalAddress1 = document.getElementById('modal-address1');
+        const modalAddress2 = document.getElementById('modal-address2');
+        const modalCity = document.getElementById('modal-city');
+        const modalEmail = document.getElementById('modal-email');
+        const modalUrl = document.getElementById('modal-url');
+        // je récupère l'élément de la modal
+        const modal = document.getElementById('booking-modal');
+        const bookingModal = bootstrap.Modal.getOrCreateInstance(modal)
+
         const bookings = <?= json_encode($bookingData) ?>;
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
@@ -48,25 +64,37 @@
                 events: bookings,
                 locale: 'fr',
                 firstDay: 1,
-                hiddenDays: [ 0 ],
-                businessHours: [
-                    {
-                        daysOfWeek: [ 1, 2, 3, 4, 5 ],
+                hiddenDays: [0],
+                businessHours: [{
+                        daysOfWeek: [1, 2, 3, 4, 5],
                         startTime: '08:00',
                         endTime: '20:00'
                     },
                     {
-                        daysOfWeek: [ 6 ],
+                        daysOfWeek: [6],
                         startTime: '09:00', // 10am
                         endTime: '12:00' // 4pm
                     }
                 ],
                 slotMinTime: '08:00',
-                slotMaxTime: '20:00'
+                slotMaxTime: '20:00',
+                eventClick: function(info) {
+                    var eventObj = info.event;
+                    // je récupère mes info additionnelles
+                    const props = eventObj.toJSON().extendedProps;
+
+                    modalTitle.textContent = eventObj.title + ' ' + eventObj.start.toLocaleString();
+                    modalAddress1.textContent = props.address1;
+                    modalAddress2.textContent = props.address2;
+                    modalCity.textContent = props.city;
+                    modalEmail.textContent = props.email;
+                    modalUrl.href = "#";
+                    // je montre la modal
+                    bookingModal.show();
+                },
             });
             calendar.render();
         });
-
     </script>
 </body>
 
