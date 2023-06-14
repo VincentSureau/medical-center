@@ -53,24 +53,28 @@ class HomeController
                 $errors['city'] = "Merci d'indiquer une ville valide";
             }
 
-            $bookingModel = new BookingModel();
-            $bookingModel
-                ->setFirstname($firstname)
-                ->setLastname($lastname)
-                ->setEmail($email)
-                ->setAddress1($address1)
-                ->setAddress2($address2)
-                ->setZip($zip)
-                ->setCity($city)
-                ->setDate($date->format('Y-m-d h:i:s'))
-            ;
-            $result = $bookingModel->create();
-            if($result) {
-                header('Location: ?page=list');
-                exit();
+
+            if(empty($errors)) {
+                $bookingModel = new BookingModel();
+                $bookingModel
+                    ->setFirstname($firstname)
+                    ->setLastname($lastname)
+                    ->setEmail($email)
+                    ->setAddress1($address1)
+                    ->setAddress2($address2)
+                    ->setZip($zip)
+                    ->setCity($city)
+                    ->setDate($date->format('Y-m-d h:i:s'))
+                ;
+                $result = $bookingModel->create();
+                if($result) {
+                    header('Location: ?page=list');
+                    exit();
+                } else {
+                    $error['booking'] = 'Une erreur est survenue';
+                }
             }
 
-            $error['booking'] = 'Une erreur est survenue';
         }
 
         require dirname(__FILE__, 2) . '/views/booking.php';
