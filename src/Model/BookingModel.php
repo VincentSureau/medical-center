@@ -24,6 +24,22 @@ class BookingModel extends AbstractModel
 
     private string $date;
 
+    public function find(int $id)
+    {
+        $sql = '
+            SELECT *
+            FROM booking
+            WHERE `id` = :id
+            ORDER BY date ASC
+            LIMIT 1
+        ';
+
+        $pdoStatement = $this->database->getPDO()->prepare($sql);
+        $pdoStatement->bindParam(':id', $id, \PDO::PARAM_INT);
+        $pdoStatement->execute();
+        return $pdoStatement->fetchObject(self::class);
+    }
+
     public function findAll()
     {
         $sql = '
@@ -69,6 +85,39 @@ class BookingModel extends AbstractModel
         $pdoStatement->bindParam(':address2',$this->address2);
         $pdoStatement->bindParam(':zip',$this->zip);
         $pdoStatement->bindParam(':city',$this->city);
+
+        $result = $pdoStatement->execute();
+
+        return $result;
+    }
+
+
+    public function update()
+    {
+        $sql = '
+            UPDATE `booking`
+            SET
+                `firstname` = :firstname,
+                `lastname` = :lastname,
+                `email` = :email,
+                `date` = :date,
+                `address1` = :address1,
+                `address2` = :address2,
+                `zip` = :zip,
+                `city` = :city
+            WHERE `id` = :id
+        ';
+
+        $pdoStatement = $this->database->getPDO()->prepare($sql);
+        $pdoStatement->bindParam(':firstname',$this->firstname);
+        $pdoStatement->bindParam(':lastname',$this->lastname);
+        $pdoStatement->bindParam(':email',$this->email);
+        $pdoStatement->bindParam(':date',$this->date);
+        $pdoStatement->bindParam(':address1',$this->address1);
+        $pdoStatement->bindParam(':address2',$this->address2);
+        $pdoStatement->bindParam(':zip',$this->zip);
+        $pdoStatement->bindParam(':city',$this->city);
+        $pdoStatement->bindParam(':id', $this->id, \PDO::PARAM_INT);
 
         $result = $pdoStatement->execute();
 

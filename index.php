@@ -14,6 +14,10 @@ $authorized_pages = [
     'list' => [
         'controller' => 'HomeController',
         'method' => 'list'
+    ],
+    'booking_edit' => [
+        'controller' => 'BookingController',
+        'method' => 'edit'
     ]
 ];
 
