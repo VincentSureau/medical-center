@@ -35,7 +35,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <a id="modal-url" href="#" class="btn btn-primary">Modifier</a>
+                        <a id="modal-delete-url" href="#" class="btn btn-danger">Supprimer</a>
+                        <a id="modal-edit-url" href="#" class="btn btn-primary">Modifier</a>
                     </div>
                 </div>
             </div>
@@ -50,7 +51,9 @@
         const modalAddress2 = document.getElementById('modal-address2');
         const modalCity = document.getElementById('modal-city');
         const modalEmail = document.getElementById('modal-email');
-        const modalUrl = document.getElementById('modal-url');
+        const modalEditUrl = document.getElementById('modal-edit-url');
+        const modalDeleteUrl = document.getElementById('modal-delete-url');
+
         // je récupère l'élément de la modal
         const modal = document.getElementById('booking-modal');
         const bookingModal = bootstrap.Modal.getOrCreateInstance(modal)
@@ -89,7 +92,8 @@
                     modalAddress2.textContent = props.address2;
                     modalCity.textContent = props.city;
                     modalEmail.textContent = props.email;
-                    modalUrl.href = "?page=booking_edit&id=" + props.booking_id;
+                    modalEditUrl.href = "?page=booking_edit&id=" + props.booking_id;
+                    modalDeleteUrl.href = "?page=booking_delete&id=" + props.booking_id;
                     // je montre la modal
                     bookingModal.show();
                 },

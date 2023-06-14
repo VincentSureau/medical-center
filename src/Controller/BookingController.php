@@ -114,6 +114,29 @@ class BookingController
         require dirname(__FILE__, 2) . '/views/booking_edit.php';
     }
 
+    public function delete()
+    {
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+        // if id is not a valid integer, redirect to booking
+        if(!$id) {
+            header('Location: ?page=list');
+            exit();
+        }
+
+        $bookingModel = new BookingModel();
+        $booking = $bookingModel->find($id);
+
+        // if booking does not exist, redirect
+        if($booking) {
+            $result = $booking->delete();
+        }
+
+        header('Location: ?page=list');
+        exit();
+
+    }
+
     private function validate_date($date)
     {
         if(empty($date)) {

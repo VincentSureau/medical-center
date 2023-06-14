@@ -18,6 +18,10 @@ $authorized_pages = [
     'booking_edit' => [
         'controller' => 'BookingController',
         'method' => 'edit'
+    ],
+    'booking_delete' => [
+        'controller' => 'BookingController',
+        'method' => 'delete'
     ]
 ];
 
