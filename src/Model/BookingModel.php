@@ -265,4 +265,12 @@ class BookingModel extends AbstractModel
         $date = new \DateTime($this->date);
         return $date->format('d/m/y h:i');
     }
+
+
+    public function formatDateCalendar()
+    {
+        // '2023-06-09T12:30:00'
+        $date = new \DateTime($this->date);
+        return $date->format('Y-m-d\Th:i:s');
+    }
 }

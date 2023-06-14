@@ -102,6 +102,26 @@ class HomeController
         $bookingModel = new BookingModel();
         $result = $bookingModel->findAll();
 
+        // $bookingData = array_map(function(BookingModel $booking) {
+        //     return [
+        //         "title" => $booking->getLastname() . ' ' . $booking->getFirstname(),
+        //         "start" => $booking->formatDateCalendar(),
+        //         "allDay" => false
+        //     ];
+        // }, $result);
+
+        // version PHP 8
+        $bookingData = array_map(fn(BookingModel $booking): array => [
+            "title" => $booking->getLastname() . ' ' . $booking->getFirstname(),
+            "start" => $booking->formatDateCalendar(),
+            "allDay" => false,
+            "email" => $booking->getEmail(),
+            "address1" => $booking->getAddress1(),
+            "address2" => $booking->getAddress2(),
+            "city" => $booking->getZip() . ' ' . $booking->getCity(),
+            "id" => $booking->getId(),
+        ], $result);
+
         require dirname(__FILE__, 2) . '/views/booking_list.php';
     }
 
