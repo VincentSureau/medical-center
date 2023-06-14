@@ -83,12 +83,13 @@
                     // je récupère mes info additionnelles
                     const props = eventObj.toJSON().extendedProps;
 
+                    console.log(props)
                     modalTitle.textContent = eventObj.title + ' ' + eventObj.start.toLocaleString();
                     modalAddress1.textContent = props.address1;
                     modalAddress2.textContent = props.address2;
                     modalCity.textContent = props.city;
                     modalEmail.textContent = props.email;
-                    modalUrl.href = "#";
+                    modalUrl.href = "?page=booking_edit&id=" + props.booking_id;
                     // je montre la modal
                     bookingModal.show();
                 },

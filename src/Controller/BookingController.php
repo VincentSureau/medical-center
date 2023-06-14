@@ -4,20 +4,37 @@ namespace App\Controller;
 
 use App\Model\BookingModel;
 
-class HomeController
+class BookingController
 {
-    public function booking()
+    public function edit()
     {
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+        // if id is not a valid integer, redirect to booking
+        if(!$id) {
+            header('Location: ?page=list');
+            exit();
+        }
+
+        $bookingModel = new BookingModel();
+        $booking = $bookingModel->find($id);
+
+        // if booking does not exist, redirect
+        if(!$booking) {
+            header('Location: ?page=list');
+            exit();
+        }
+
         $errors = [];
         $data = [
-            "email" => "",
-            "firstname" => "",
-            "lastname" => "",
-            "address1" => "",
-            "address2" => "",
-            "zip" => "",
-            "city" => "",
-            "date" => "",
+            "email" => $booking->getEmail(),
+            "firstname" => $booking->getFirstname(),
+            "lastname" => $booking->getLastname(),
+            "address1" => $booking->getAddress1(),
+            "address2" => $booking->getAddress2(),
+            "zip" => $booking->getZip(),
+            "city" => $booking->getCity(),
+            "date" => $booking->getDate(),
         ];
         // if form has been submitted
         if(count($_POST) > 0) {
@@ -72,8 +89,7 @@ class HomeController
 
 
             if(empty($errors)) {
-                $bookingModel = new BookingModel();
-                $bookingModel
+                $booking
                     ->setFirstname($firstname)
                     ->setLastname($lastname)
                     ->setEmail($email)
@@ -83,7 +99,8 @@ class HomeController
                     ->setCity($city)
                     ->setDate($date->format('Y-m-d h:i:s'))
                 ;
-                $result = $bookingModel->create();
+                
+                $result = $booking->update();
                 if($result) {
                     header('Location: ?page=list');
                     exit();
@@ -94,35 +111,7 @@ class HomeController
 
         }
 
-        require dirname(__FILE__, 2) . '/views/booking.php';
-    }
-
-    public function list()
-    {
-        $bookingModel = new BookingModel();
-        $result = $bookingModel->findAll();
-
-        // $bookingData = array_map(function(BookingModel $booking) {
-        //     return [
-        //         "title" => $booking->getLastname() . ' ' . $booking->getFirstname(),
-        //         "start" => $booking->formatDateCalendar(),
-        //         "allDay" => false
-        //     ];
-        // }, $result);
-
-        // version PHP 8
-        $bookingData = array_map(fn(BookingModel $booking): array => [
-            "title" => $booking->getLastname() . ' ' . $booking->getFirstname(),
-            "start" => $booking->formatDateCalendar(),
-            "allDay" => false,
-            "email" => $booking->getEmail(),
-            "address1" => $booking->getAddress1(),
-            "address2" => $booking->getAddress2(),
-            "city" => $booking->getZip() . ' ' . $booking->getCity(),
-            "booking_id" => $booking->getId(),
-        ], $result);
-
-        require dirname(__FILE__, 2) . '/views/booking_list.php';
+        require dirname(__FILE__, 2) . '/views/booking_edit.php';
     }
 
     private function validate_date($date)
