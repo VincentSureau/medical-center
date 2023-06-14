@@ -23,7 +23,7 @@
             <div class="row g-3">
                 <div class="col-sm-6">
                     <label for="firstName" class="form-label">Prénom</label>
-                    <input name="firstname" type="text" class="form-control <?= array_key_exists('firstname', $errors) ? "is-invalid" : "" ?>" id="firstName" placeholder="" value="" required="">
+                    <input value="<?= $data['firstname'] ?>" name="firstname" type="text" class="form-control <?= array_key_exists('firstname', $errors) ? "is-invalid" : "" ?>" id="firstName" placeholder="" value="" required="">
                     <div class="invalid-feedback">
                         <?= array_key_exists('firstname', $errors) ? $errors['firstname'] : "" ?>
                     </div>
@@ -31,7 +31,7 @@
 
                 <div class="col-sm-6">
                     <label for="lastName" class="form-label">Nom de famille</label>
-                    <input name="lastname" type="text" class="form-control <?= array_key_exists('lastname', $errors) ? "is-invalid" : "" ?>" id="lastName" placeholder="" value="" required="">
+                    <input value="<?= $data['lastname'] ?>" name="lastname" type="text" class="form-control <?= array_key_exists('lastname', $errors) ? "is-invalid" : "" ?>" id="lastName" placeholder="" value="" required="">
                     <div class="invalid-feedback">
                         <?= array_key_exists('lastname', $errors) ? $errors['lastname'] : "" ?>
                     </div>
@@ -39,7 +39,7 @@
 					
                 <div class="col-12">
                     <label for="date" class="form-label">Date et heure</label>
-                    <input name="date" type="datetime-local" class="form-control <?= array_key_exists('date', $errors) ? "is-invalid" : "" ?>" id="date" placeholder="" value="" required="">
+                    <input value="<?= $data['date'] ?>" name="date" type="datetime-local" class="form-control <?= array_key_exists('date', $errors) ? "is-invalid" : "" ?>" id="date" placeholder="" value="" required="">
                     <div class="invalid-feedback">
                         <?= array_key_exists('date', $errors) ? $errors['date'] : "" ?>
                     </div>
@@ -47,7 +47,7 @@
 
                 <div class="col-12">
                     <label for="email" class="form-label">Email</label>
-                    <input name="email" type="email" class="form-control <?= array_key_exists('email', $errors) ? "is-invalid" : "" ?>" id="email" placeholder="you@example.com">
+                    <input value="<?= $data['email'] ?>" name="email" type="email" class="form-control <?= array_key_exists('email', $errors) ? "is-invalid" : "" ?>" id="email" placeholder="you@example.com">
                     <div class="invalid-feedback">
                         <?= array_key_exists('email', $errors) ? $errors['email'] : "" ?>
                     </div>
@@ -55,7 +55,7 @@
 
                 <div class="col-12">
                     <label for="address" class="form-label">Addresse</label>
-                    <input name="address1" type="text" class="form-control <?= array_key_exists('address1', $errors) ? "is-invalid" : "" ?>" id="address" placeholder="1234 Main St" required="">
+                    <input value="<?= $data['address1'] ?>" name="address1" type="text" class="form-control <?= array_key_exists('address1', $errors) ? "is-invalid" : "" ?>" id="address" placeholder="1234 Main St" required="">
                     <div class="invalid-feedback">
                         <?= array_key_exists('address1', $errors) ? $errors['address1'] : "" ?>
                     </div>
@@ -63,12 +63,12 @@
 
                 <div class="col-12">
                     <label for="address2" class="form-label">Complément d'adresse <span class="text-body-secondary">(Optional)</span></label>
-                    <input name="address2" type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+                    <input value="<?= $data['address2'] ?>" name="address2" type="text" class="form-control" id="address2" placeholder="Apartment or suite">
                 </div>
 
                 <div class="col-12">
                     <label for="zip" class="form-label">Code postal</label>
-                    <input name="zip" type="text" class="form-control <?= array_key_exists('zip', $errors) ? "is-invalid" : "" ?>" id="zip" placeholder="" required="">
+                    <input value="<?= $data['zip'] ?>" name="zip" type="text" class="form-control <?= array_key_exists('zip', $errors) ? "is-invalid" : "" ?>" id="zip" placeholder="" required="">
                     <div class="invalid-feedback">
                         <?= array_key_exists('zip', $errors) ? $errors['zip'] : "" ?>
                     </div>
@@ -76,7 +76,7 @@
 
                 <div class="col-12">
                     <label for="city" class="form-label">City</label>
-                    <input name="city" type="text" class="form-control <?= array_key_exists('city', $errors) ? "is-invalid" : "" ?>" id="city" placeholder="" required="">
+                    <input value="<?= $data['city'] ?>" name="city" type="text" class="form-control <?= array_key_exists('city', $errors) ? "is-invalid" : "" ?>" id="city" placeholder="" required="">
                     <div class="invalid-feedback">
                         <?= array_key_exists('city', $errors) ? $errors['city'] : "" ?>
                     </div>
