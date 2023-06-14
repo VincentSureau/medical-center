@@ -91,7 +91,6 @@ class BookingModel extends AbstractModel
         return $result;
     }
 
-
     public function update()
     {
         $sql = '
@@ -117,6 +116,22 @@ class BookingModel extends AbstractModel
         $pdoStatement->bindParam(':address2',$this->address2);
         $pdoStatement->bindParam(':zip',$this->zip);
         $pdoStatement->bindParam(':city',$this->city);
+        $pdoStatement->bindParam(':id', $this->id, \PDO::PARAM_INT);
+
+        $result = $pdoStatement->execute();
+
+        return $result;
+    }
+
+    public function delete()
+    {
+        $sql = '
+            DELETE
+            FROM  `booking`
+            WHERE `id` = :id
+        ';
+
+        $pdoStatement = $this->database->getPDO()->prepare($sql);
         $pdoStatement->bindParam(':id', $this->id, \PDO::PARAM_INT);
 
         $result = $pdoStatement->execute();
